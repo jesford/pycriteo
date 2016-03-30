@@ -10,11 +10,11 @@ import xml.etree.ElementTree as etree
 
 import time
 import unicodecsv as csv
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 
 
 def _assign(selector, entity):
-    for key, value in selector.iteritems():
+    for key, value in selector.items():
         attr = getattr(entity, key)
         if isinstance(value, dict):
             _assign(value, attr)
@@ -231,7 +231,7 @@ class Client(object):
                 break
 
         table = etree.parse(
-            urllib2.urlopen(self.getReportDownloadUrl(jobID))
+            urllib.request.urlopen(self.getReportDownloadUrl(jobID))
         ).getroot().getchildren()[0]
 
         rows = [i for i in table if i.tag == 'rows'][0]
@@ -239,7 +239,7 @@ class Client(object):
         with open(path, 'w') as rep:
             wr = csv.DictWriter(
                 rep,
-                set([f for r in rows for f in r.keys()])
+                set([f for r in rows for f in list(r.keys())])
             )
             wr.writeheader()
 

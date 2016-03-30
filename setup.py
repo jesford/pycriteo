@@ -15,9 +15,5 @@ setup(
     author='Francesco Della Vedova',
     author_email='fdellavedova@gmail.com',
     license='Apache 2.0',
-    packages=['pycriteo'],
-    install_requires=[
-        'suds==0.4',
-        'unicodecsv==0.9.4',
-    ]
+    packages=['pycriteo']
 )
