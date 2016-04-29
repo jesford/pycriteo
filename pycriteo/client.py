@@ -9,7 +9,7 @@ from suds.client import Client as soapclient
 import xml.etree.ElementTree as etree
 
 import time
-import unicodecsv as csv
+import csv
 import urllib.request, urllib.error, urllib.parse
 
 
@@ -245,6 +245,25 @@ class Client(object):
 
             for row in rows:
                 wr.writerow(row.attrib)
+
+    def downloadData(self, jobID):
+        """
+        Utility method for downloading a report in csv format.
+        Args:
+            jobID: jobID
+            path: path to destination csv file
+        """
+        while True:
+            if not self.CLIENT.service.getJobStatus(jobID) == 'Pending':
+                break
+
+        table = etree.parse(
+            urllib.request.urlopen(self.getReportDownloadUrl(jobID))
+        ).getroot().getchildren()[0]
+
+        rows = [i for i in table if i.tag == 'rows'][0]
+        print(set([f for r in rows for f in list(r.keys())]))
+        return rows
 
     def _make_type(self, object_name):
         return self.CLIENT.factory.create(object_name)

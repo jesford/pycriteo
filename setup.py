@@ -11,13 +11,12 @@ setup(
     version='0.0.1',
     description='Simple library to access the Criteo API',
     long_description=readme(),
-    url='https://github.com/fdellavedova-wimdu/pycriteo',
+    url='https://github.com/zemekeneng/pycriteo',
     author='Francesco Della Vedova',
     author_email='fdellavedova@gmail.com',
     license='Apache 2.0',
     packages=['pycriteo'],
     install_requires=[
-        'suds-jurko==0.6',
-        'unicodecsv==0.14.1',
+        'suds-jurko==0.6'
     ]
 )
