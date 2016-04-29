@@ -262,7 +262,6 @@ class Client(object):
         ).getroot().getchildren()[0]
 
         rows = [i for i in table if i.tag == 'rows'][0]
-        print(set([f for r in rows for f in list(r.keys())]))
         return rows
 
     def _make_type(self, object_name):
